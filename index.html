@@ -388,7 +388,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const PASSWORD = 'IPA25';
 
 const { createClient } = supabase;
-const db = createClient(https://howvzemotgnlmcxyxstn.supabase.co);
+const db = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 let sid = sessionStorage.getItem('sqn_sid');
 if (!sid) { sid = 's' + Date.now().toString(36) + Math.random().toString(36).slice(2,5); sessionStorage.setItem('sqn_sid', sid); }
