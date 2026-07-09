@@ -384,11 +384,11 @@ input:focus{border-color:var(--lime-d)}
 
 <script>
 const SUPABASE_URL = 'https://howvzemotgnlmcxyxstn.supabase.co';
-const SUPABASE_ANON_KEY = 'series-quiz-html.vercel.app';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhvd3Z6ZW1vdGdubG1jeHl4c3RuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3MzE4MzIsImV4cCI6MjA5ODMwNzgzMn0.8zvoOy3wJK9sAFUe_hwFLeBLdQAX7pIP9dizxJUmBps';
 const PASSWORD = 'IPA25';
 
 const { createClient } = supabase;
-const db = createClient(https://howvzemotgnlmcxyxstn.supabase.co, eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhvd3Z6ZW1vdGdubG1jeHl4c3RuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3MzE4MzIsImV4cCI6MjA5ODMwNzgzMn0.8zvoOy3wJK9sAFUe_hwFLeBLdQAX7pIP9dizxJUmBps);
+const db = createClient(https://howvzemotgnlmcxyxstn.supabase.co);
 
 let sid = sessionStorage.getItem('sqn_sid');
 if (!sid) { sid = 's' + Date.now().toString(36) + Math.random().toString(36).slice(2,5); sessionStorage.setItem('sqn_sid', sid); }
