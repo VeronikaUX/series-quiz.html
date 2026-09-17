@@ -233,21 +233,18 @@ input:focus{border-color:var(--lime-d)}
             <div style="margin-bottom:8px">
               <input type="text" id="name1" placeholder="Series name" autocomplete="off" style="width:100%"/>
             </div>
-            <div style="margin-bottom:8px">
-              <input type="text" id="original_title1" placeholder="Original title (if different)" autocomplete="off" style="width:100%"/>
-            </div>
             <div class="field-row" style="margin-bottom:8px">
               <input type="text" id="episode_info1" placeholder="Season / Episode in the clip" autocomplete="off"/>
-              <input type="text" id="country1" placeholder="Country" autocomplete="off" style="width:110px;flex-shrink:0"/>
+              <input type="text" id="country1" placeholder="Country" autocomplete="off" style="width:160px;flex-shrink:0"/>
             </div>
             <div class="field-row" style="margin-bottom:8px">
               <input type="text" id="creator1" placeholder="Creator / Showrunner" autocomplete="off"/>
               <input type="text" id="imdb1" placeholder="IMDb score" autocomplete="off" style="width:100px;flex-shrink:0"/>
             </div>
             <div class="field-row">
-              <input type="text" id="year_start1" placeholder="Year start" autocomplete="off"/>
+              <input type="text" id="year_start1" placeholder="Year start" autocomplete="off" style="width:120px;flex-shrink:0"/>
               <input type="text" id="year_end1" placeholder="Year end / Ongoing" autocomplete="off"/>
-              <input type="text" id="seasons1" placeholder="Seasons" style="width:80px;flex-shrink:0"/>
+              <input type="text" id="seasons1" placeholder="Seasons" style="width:90px;flex-shrink:0"/>
             </div>
           </div>
 
@@ -266,21 +263,18 @@ input:focus{border-color:var(--lime-d)}
             <div style="margin-bottom:8px">
               <input type="text" id="name2" placeholder="Series name" autocomplete="off" style="width:100%"/>
             </div>
-            <div style="margin-bottom:8px">
-              <input type="text" id="original_title2" placeholder="Original title (if different)" autocomplete="off" style="width:100%"/>
-            </div>
             <div class="field-row" style="margin-bottom:8px">
               <input type="text" id="episode_info2" placeholder="Season / Episode in the clip" autocomplete="off"/>
-              <input type="text" id="country2" placeholder="Country" autocomplete="off" style="width:110px;flex-shrink:0"/>
+              <input type="text" id="country2" placeholder="Country" autocomplete="off" style="width:160px;flex-shrink:0"/>
             </div>
             <div class="field-row" style="margin-bottom:8px">
               <input type="text" id="creator2" placeholder="Creator / Showrunner" autocomplete="off"/>
               <input type="text" id="imdb2" placeholder="IMDb score" autocomplete="off" style="width:100px;flex-shrink:0"/>
             </div>
             <div class="field-row">
-              <input type="text" id="year_start2" placeholder="Year start" autocomplete="off"/>
+              <input type="text" id="year_start2" placeholder="Year start" autocomplete="off" style="width:120px;flex-shrink:0"/>
               <input type="text" id="year_end2" placeholder="Year end / Ongoing" autocomplete="off"/>
-              <input type="text" id="seasons2" placeholder="Seasons" style="width:80px;flex-shrink:0"/>
+              <input type="text" id="seasons2" placeholder="Seasons" style="width:90px;flex-shrink:0"/>
             </div>
           </div>
 
@@ -498,7 +492,7 @@ async function submitClips(){
   const{error}=await db.from('series_clips').insert([
     {video_id:v1,start_sec:s1,session_id:sid,
      series_name:document.getElementById('name1').value.trim(),
-     original_title:document.getElementById('original_title1').value.trim(),
+     original_title:'',
      episode_info:document.getElementById('episode_info1').value.trim(),
      creator:document.getElementById('creator1').value.trim(),
      imdb_score:document.getElementById('imdb1').value.trim(),
@@ -508,7 +502,7 @@ async function submitClips(){
      country:document.getElementById('country1').value.trim()},
     {video_id:v2,start_sec:s2,session_id:sid,
      series_name:document.getElementById('name2').value.trim(),
-     original_title:document.getElementById('original_title2').value.trim(),
+     original_title:'',
      episode_info:document.getElementById('episode_info2').value.trim(),
      creator:document.getElementById('creator2').value.trim(),
      imdb_score:document.getElementById('imdb2').value.trim(),
@@ -518,7 +512,7 @@ async function submitClips(){
      country:document.getElementById('country2').value.trim()}
   ]);
   if(error){alert('Error: '+error.message);btn.disabled=false;btn.innerHTML='&#128064; Submit anonymously';return;}
-  ['url1','url2','start1','start2','name1','name2','original_title1','original_title2','episode_info1','episode_info2','creator1','creator2','imdb1','imdb2','year_start1','year_start2','year_end1','year_end2','seasons1','seasons2','country1','country2']
+  ['url1','url2','start1','start2','name1','name2','episode_info1','episode_info2','creator1','creator2','imdb1','imdb2','year_start1','year_start2','year_end1','year_end2','seasons1','seasons2','country1','country2']
     .forEach(id=>document.getElementById(id).value='');
   btn.disabled=false;btn.innerHTML='&#128064; Submit anonymously';
   toast('Clips submitted — answers hidden until reveal');
