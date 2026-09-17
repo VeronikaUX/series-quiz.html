@@ -218,19 +218,25 @@ input:focus{border-color:var(--lime-d)}
         <p class="card-desc">Paste two YouTube clips from TV series. Fill in the details — they stay hidden until you hit Reveal during quiz night.</p>
 
         <fieldset style="border:none;padding:0">
-          <div class="field">
+
+          <!-- CLIP 1 -->
+          <div class="sec-label">Clip 01</div>
+          <div class="field" style="margin-top:10px">
             <label for="url1">YouTube URL <span style="color:var(--red)">*</span></label>
             <div class="field-row">
-              <input type="text" id="url1" placeholder="https://youtube.com/watch?v=..." autocomplete="off" spellcheck="false"/>
+              <input type="text" id="url1" placeholder="https://youtube.com/watch?v=..." autocomplete="off" spellcheck="false" oninput="updateThumb(1)"/>
               <input type="number" id="start1" placeholder="0s" min="0" style="width:68px" aria-label="Start time in seconds"/>
             </div>
             <div class="hint">Start at (seconds) — skip the title card</div>
+          </div>
+          <div id="thumb1" style="display:none;margin-bottom:8px">
+            <img id="thumb1-img" src="" alt="Preview" style="width:100%;max-height:120px;object-fit:cover;border:1px solid var(--bd)"/>
           </div>
           <div class="field">
             <label for="name1">Series name <span style="color:var(--red)">*</span></label>
             <input type="text" id="name1" placeholder="Series name" autocomplete="off" style="width:100%;margin-bottom:8px"/>
           </div>
-          <div class="sec-label" style="margin-top:4px">Optional details</div>
+          <div class="sec-label" style="margin-top:4px;margin-bottom:8px">Optional details</div>
           <div class="field-row" style="margin-bottom:8px">
             <input type="text" id="episode_info1" placeholder="Season / Episode in the clip" autocomplete="off"/>
             <input type="text" id="country1" placeholder="Country" autocomplete="off" style="width:160px;flex-shrink:0"/>
@@ -244,7 +250,43 @@ input:focus{border-color:var(--lime-d)}
             <input type="text" id="year_end1" placeholder="Year end / Ongoing" autocomplete="off"/>
             <input type="text" id="seasons1" placeholder="Seasons" style="width:90px;flex-shrink:0"/>
           </div>
-          <button class="btn-primary" id="add-btn" onclick="submitClip()">&#128064; Submit anonymously</button>
+          <button class="btn-primary" id="add-btn1" onclick="submitClip(1)" style="margin-bottom:1.5rem">&#128064; Submit clip 01 anonymously</button>
+
+          <div class="divider"></div>
+
+          <!-- CLIP 2 -->
+          <div class="sec-label" style="margin-top:1.25rem">Clip 02</div>
+          <div class="field" style="margin-top:10px">
+            <label for="url2">YouTube URL <span style="color:var(--red)">*</span></label>
+            <div class="field-row">
+              <input type="text" id="url2" placeholder="https://youtube.com/watch?v=..." autocomplete="off" spellcheck="false" oninput="updateThumb(2)"/>
+              <input type="number" id="start2" placeholder="0s" min="0" style="width:68px" aria-label="Start time in seconds"/>
+            </div>
+            <div class="hint">Start at (seconds) — skip the title card</div>
+          </div>
+          <div id="thumb2" style="display:none;margin-bottom:8px">
+            <img id="thumb2-img" src="" alt="Preview" style="width:100%;max-height:120px;object-fit:cover;border:1px solid var(--bd)"/>
+          </div>
+          <div class="field">
+            <label for="name2">Series name <span style="color:var(--red)">*</span></label>
+            <input type="text" id="name2" placeholder="Series name" autocomplete="off" style="width:100%;margin-bottom:8px"/>
+          </div>
+          <div class="sec-label" style="margin-top:4px;margin-bottom:8px">Optional details</div>
+          <div class="field-row" style="margin-bottom:8px">
+            <input type="text" id="episode_info2" placeholder="Season / Episode in the clip" autocomplete="off"/>
+            <input type="text" id="country2" placeholder="Country" autocomplete="off" style="width:160px;flex-shrink:0"/>
+          </div>
+          <div class="field-row" style="margin-bottom:8px">
+            <input type="text" id="creator2" placeholder="Creator / Showrunner" autocomplete="off"/>
+            <input type="text" id="imdb2" placeholder="IMDb score" autocomplete="off" style="width:100px;flex-shrink:0"/>
+          </div>
+          <div class="field-row" style="margin-bottom:16px">
+            <input type="text" id="year_start2" placeholder="Year start" autocomplete="off" style="width:120px;flex-shrink:0"/>
+            <input type="text" id="year_end2" placeholder="Year end / Ongoing" autocomplete="off"/>
+            <input type="text" id="seasons2" placeholder="Seasons" style="width:90px;flex-shrink:0"/>
+          </div>
+          <button class="btn-primary" id="add-btn2" onclick="submitClip(2)">&#128064; Submit clip 02 anonymously</button>
+
         </fieldset>
       </div>
 
@@ -446,32 +488,46 @@ function render(){
   else{ss.style.display='none';}
 }
 
-async function submitClip(){
-  const u1=document.getElementById('url1').value.trim();
-  const s1=parseInt(document.getElementById('start1').value)||0;
-  const v1=getVid(u1);
-  const name=document.getElementById('name1').value.trim();
-  if(!v1){alert('Please enter a valid YouTube URL.');return;}
+function updateThumb(n){
+  const url=document.getElementById('url'+n).value.trim();
+  const vid=getVid(url);
+  const wrap=document.getElementById('thumb'+n);
+  const img=document.getElementById('thumb'+n+'-img');
+  if(vid){
+    img.src='https://img.youtube.com/vi/'+vid+'/mqdefault.jpg';
+    wrap.style.display='block';
+  }else{
+    wrap.style.display='none';
+  }
+}
+
+async function submitClip(n){
+  const url=document.getElementById('url'+n).value.trim();
+  const sec=parseInt(document.getElementById('start'+n).value)||0;
+  const vid=getVid(url);
+  const name=document.getElementById('name'+n).value.trim();
+  if(!vid){alert('Please enter a valid YouTube URL.');return;}
   if(!name){alert('Please enter the series name.');return;}
-  const btn=document.getElementById('add-btn');
+  const btn=document.getElementById('add-btn'+n);
   btn.disabled=true;btn.textContent='Saving...';
   const{error}=await db.from('series_clips').insert([
-    {video_id:v1,start_sec:s1,session_id:sid,
+    {video_id:vid,start_sec:sec,session_id:sid,
      series_name:name,
      original_title:'',
-     episode_info:document.getElementById('episode_info1').value.trim(),
-     creator:document.getElementById('creator1').value.trim(),
-     imdb_score:document.getElementById('imdb1').value.trim(),
-     year_start:document.getElementById('year_start1').value.trim(),
-     year_end:document.getElementById('year_end1').value.trim(),
-     seasons:document.getElementById('seasons1').value.trim(),
-     country:document.getElementById('country1').value.trim()}
+     episode_info:document.getElementById('episode_info'+n).value.trim(),
+     creator:document.getElementById('creator'+n).value.trim(),
+     imdb_score:document.getElementById('imdb'+n).value.trim(),
+     year_start:document.getElementById('year_start'+n).value.trim(),
+     year_end:document.getElementById('year_end'+n).value.trim(),
+     seasons:document.getElementById('seasons'+n).value.trim(),
+     country:document.getElementById('country'+n).value.trim()}
   ]);
-  if(error){alert('Error: '+error.message);btn.disabled=false;btn.innerHTML='&#128064; Submit anonymously';return;}
-  ['url1','start1','name1','episode_info1','creator1','imdb1','year_start1','year_end1','seasons1','country1']
-    .forEach(id=>document.getElementById(id).value='');
-  btn.disabled=false;btn.innerHTML='&#128064; Submit anonymously';
-  toast('Clip submitted — answer hidden until reveal');
+  if(error){alert('Error: '+error.message);btn.disabled=false;btn.innerHTML='&#128064; Submit clip 0'+n+' anonymously';return;}
+  ['url','start','name','episode_info','creator','imdb','year_start','year_end','seasons','country']
+    .forEach(f=>{const el=document.getElementById(f+n);if(el)el.value='';});
+  document.getElementById('thumb'+n).style.display='none';
+  btn.disabled=false;btn.innerHTML='&#128064; Submit clip 0'+n+' anonymously';
+  toast('Clip 0'+n+' submitted — answer hidden until reveal');
   await init();
 }
 
