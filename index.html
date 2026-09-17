@@ -230,14 +230,24 @@ input:focus{border-color:var(--lime-d)}
           </div>
           <div class="field">
             <label>Clip 01 — Series details</label>
-            <div class="field-row" style="margin-bottom:8px">
-              <input type="text" id="name1" placeholder="Series name" autocomplete="off"/>
-              <input type="text" id="creator1" placeholder="Creator" autocomplete="off"/>
+            <div style="margin-bottom:8px">
+              <input type="text" id="name1" placeholder="Series name" autocomplete="off" style="width:100%"/>
             </div>
-            <div class="field-row-3">
-              <input type="text" id="first1" placeholder="First episode date" autocomplete="off"/>
-              <input type="text" id="final1" placeholder="Final episode date" autocomplete="off"/>
-              <input type="text" id="seasons1" placeholder="Seasons" style="width:80px"/>
+            <div style="margin-bottom:8px">
+              <input type="text" id="original_title1" placeholder="Original title (if different)" autocomplete="off" style="width:100%"/>
+            </div>
+            <div class="field-row" style="margin-bottom:8px">
+              <input type="text" id="episode_info1" placeholder="Season / Episode in the clip" autocomplete="off"/>
+              <input type="text" id="country1" placeholder="Country" autocomplete="off" style="width:110px;flex-shrink:0"/>
+            </div>
+            <div class="field-row" style="margin-bottom:8px">
+              <input type="text" id="creator1" placeholder="Creator / Showrunner" autocomplete="off"/>
+              <input type="text" id="imdb1" placeholder="IMDb score" autocomplete="off" style="width:100px;flex-shrink:0"/>
+            </div>
+            <div class="field-row">
+              <input type="text" id="year_start1" placeholder="Year start" autocomplete="off"/>
+              <input type="text" id="year_end1" placeholder="Year end / Ongoing" autocomplete="off"/>
+              <input type="text" id="seasons1" placeholder="Seasons" style="width:80px;flex-shrink:0"/>
             </div>
           </div>
 
@@ -253,14 +263,24 @@ input:focus{border-color:var(--lime-d)}
           </div>
           <div class="field">
             <label>Clip 02 — Series details</label>
-            <div class="field-row" style="margin-bottom:8px">
-              <input type="text" id="name2" placeholder="Series name" autocomplete="off"/>
-              <input type="text" id="creator2" placeholder="Creator" autocomplete="off"/>
+            <div style="margin-bottom:8px">
+              <input type="text" id="name2" placeholder="Series name" autocomplete="off" style="width:100%"/>
             </div>
-            <div class="field-row-3">
-              <input type="text" id="first2" placeholder="First episode date" autocomplete="off"/>
-              <input type="text" id="final2" placeholder="Final episode date" autocomplete="off"/>
-              <input type="text" id="seasons2" placeholder="Seasons" style="width:80px"/>
+            <div style="margin-bottom:8px">
+              <input type="text" id="original_title2" placeholder="Original title (if different)" autocomplete="off" style="width:100%"/>
+            </div>
+            <div class="field-row" style="margin-bottom:8px">
+              <input type="text" id="episode_info2" placeholder="Season / Episode in the clip" autocomplete="off"/>
+              <input type="text" id="country2" placeholder="Country" autocomplete="off" style="width:110px;flex-shrink:0"/>
+            </div>
+            <div class="field-row" style="margin-bottom:8px">
+              <input type="text" id="creator2" placeholder="Creator / Showrunner" autocomplete="off"/>
+              <input type="text" id="imdb2" placeholder="IMDb score" autocomplete="off" style="width:100px;flex-shrink:0"/>
+            </div>
+            <div class="field-row">
+              <input type="text" id="year_start2" placeholder="Year start" autocomplete="off"/>
+              <input type="text" id="year_end2" placeholder="Year end / Ongoing" autocomplete="off"/>
+              <input type="text" id="seasons2" placeholder="Seasons" style="width:80px;flex-shrink:0"/>
             </div>
           </div>
 
@@ -330,22 +350,35 @@ input:focus{border-color:var(--lime-d)}
         <div class="answer-card" id="answer-card">
           <div class="answer-label">The answer is</div>
           <div class="answer-title" id="ans-title">—</div>
+          <div style="font-size:13px;color:var(--tx2);margin-bottom:10px" id="ans-original">—</div>
           <div class="answer-grid">
+            <div class="answer-item">
+              <div class="answer-item-label">Season / Episode</div>
+              <div class="answer-item-val" id="ans-episode">—</div>
+            </div>
             <div class="answer-item">
               <div class="answer-item-label">Creator</div>
               <div class="answer-item-val" id="ans-creator">—</div>
+            </div>
+            <div class="answer-item">
+              <div class="answer-item-label">Year start</div>
+              <div class="answer-item-val" id="ans-year-start">—</div>
+            </div>
+            <div class="answer-item">
+              <div class="answer-item-label">Year end</div>
+              <div class="answer-item-val" id="ans-year-end">—</div>
             </div>
             <div class="answer-item">
               <div class="answer-item-label">Seasons</div>
               <div class="answer-item-val" id="ans-seasons">—</div>
             </div>
             <div class="answer-item">
-              <div class="answer-item-label">First episode</div>
-              <div class="answer-item-val" id="ans-first">—</div>
+              <div class="answer-item-label">Country</div>
+              <div class="answer-item-val" id="ans-country">—</div>
             </div>
             <div class="answer-item">
-              <div class="answer-item-label">Final episode</div>
-              <div class="answer-item-val" id="ans-final">—</div>
+              <div class="answer-item-label">IMDb</div>
+              <div class="answer-item-val" id="ans-imdb">—</div>
             </div>
           </div>
         </div>
@@ -373,18 +406,22 @@ input:focus{border-color:var(--lime-d)}
   </div>
   <div class="fs-answer-bar" id="fs-answer-bar">
     <div class="fs-answer-title" id="fs-ans-title">—</div>
+    <div style="font-size:12px;color:var(--tx2);margin-bottom:6px" id="fs-ans-original">—</div>
     <div class="fs-answer-grid">
+      <div class="fs-answer-item"><div class="fs-answer-item-label">Season / Episode</div><div class="fs-answer-item-val" id="fs-ans-episode">—</div></div>
       <div class="fs-answer-item"><div class="fs-answer-item-label">Creator</div><div class="fs-answer-item-val" id="fs-ans-creator">—</div></div>
+      <div class="fs-answer-item"><div class="fs-answer-item-label">Year start</div><div class="fs-answer-item-val" id="fs-ans-year-start">—</div></div>
+      <div class="fs-answer-item"><div class="fs-answer-item-label">Year end</div><div class="fs-answer-item-val" id="fs-ans-year-end">—</div></div>
       <div class="fs-answer-item"><div class="fs-answer-item-label">Seasons</div><div class="fs-answer-item-val" id="fs-ans-seasons">—</div></div>
-      <div class="fs-answer-item"><div class="fs-answer-item-label">First episode</div><div class="fs-answer-item-val" id="fs-ans-first">—</div></div>
-      <div class="fs-answer-item"><div class="fs-answer-item-label">Final episode</div><div class="fs-answer-item-val" id="fs-ans-final">—</div></div>
+      <div class="fs-answer-item"><div class="fs-answer-item-label">Country</div><div class="fs-answer-item-val" id="fs-ans-country">—</div></div>
+      <div class="fs-answer-item"><div class="fs-answer-item-label">IMDb</div><div class="fs-answer-item-val" id="fs-ans-imdb">—</div></div>
     </div>
   </div>
 </div>
 
 <script>
 const SUPABASE_URL = 'https://howvzemotgnlmcxyxstn.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imhvd3Z6ZW1vdGdubG1jeHl4c3RuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI3MzE4MzIsImV4cCI6MjA5ODMwNzgzMn0.8zvoOy3wJK9sAFUe_hwFLeBLdQAX7pIP9dizxJUmBps';
+const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY_HERE';
 const PASSWORD = 'IPA25';
 
 const { createClient } = supabase;
@@ -439,7 +476,7 @@ function render(){
         <div class="clip-idx">${String(i+1).padStart(2,'0')}</div>
         <div class="clip-info">
           <div class="clip-name">${c.series_name||'Your clip '+(i+1)}</div>
-          <div class="clip-sub">${[c.creator,c.seasons?c.seasons+' seasons':null].filter(Boolean).join(' · ')}${c.start_sec>0?' · Starts at '+c.start_sec+'s':''}</div>
+          <div class="clip-sub">${[c.original_title,c.episode_info,c.year_start,c.country].filter(Boolean).join(' · ')}${c.start_sec>0?' · Starts at '+c.start_sec+'s':''}</div>
         </div>
         <button class="btn-remove" onclick="removeClip('${c.id}')" aria-label="Remove">&#10005;</button>
       </div>`).join('');
@@ -461,19 +498,27 @@ async function submitClips(){
   const{error}=await db.from('series_clips').insert([
     {video_id:v1,start_sec:s1,session_id:sid,
      series_name:document.getElementById('name1').value.trim(),
+     original_title:document.getElementById('original_title1').value.trim(),
+     episode_info:document.getElementById('episode_info1').value.trim(),
      creator:document.getElementById('creator1').value.trim(),
-     first_episode:document.getElementById('first1').value.trim(),
-     final_episode:document.getElementById('final1').value.trim(),
-     seasons:document.getElementById('seasons1').value.trim()},
+     imdb_score:document.getElementById('imdb1').value.trim(),
+     year_start:document.getElementById('year_start1').value.trim(),
+     year_end:document.getElementById('year_end1').value.trim(),
+     seasons:document.getElementById('seasons1').value.trim(),
+     country:document.getElementById('country1').value.trim()},
     {video_id:v2,start_sec:s2,session_id:sid,
      series_name:document.getElementById('name2').value.trim(),
+     original_title:document.getElementById('original_title2').value.trim(),
+     episode_info:document.getElementById('episode_info2').value.trim(),
      creator:document.getElementById('creator2').value.trim(),
-     first_episode:document.getElementById('first2').value.trim(),
-     final_episode:document.getElementById('final2').value.trim(),
-     seasons:document.getElementById('seasons2').value.trim()}
+     imdb_score:document.getElementById('imdb2').value.trim(),
+     year_start:document.getElementById('year_start2').value.trim(),
+     year_end:document.getElementById('year_end2').value.trim(),
+     seasons:document.getElementById('seasons2').value.trim(),
+     country:document.getElementById('country2').value.trim()}
   ]);
   if(error){alert('Error: '+error.message);btn.disabled=false;btn.innerHTML='&#128064; Submit anonymously';return;}
-  ['url1','url2','start1','start2','name1','name2','creator1','creator2','first1','first2','final1','final2','seasons1','seasons2']
+  ['url1','url2','start1','start2','name1','name2','original_title1','original_title2','episode_info1','episode_info2','creator1','creator2','imdb1','imdb2','year_start1','year_start2','year_end1','year_end2','seasons1','seasons2','country1','country2']
     .forEach(id=>document.getElementById(id).value='');
   btn.disabled=false;btn.innerHTML='&#128064; Submit anonymously';
   toast('Clips submitted — answers hidden until reveal');
@@ -587,10 +632,14 @@ function tick(){
 function revealAnswer(){
   const c=quizOrder[qi];
   document.getElementById('ans-title').textContent=c.series_name||'Unknown';
+  document.getElementById('ans-original').textContent=c.original_title||'';
+  document.getElementById('ans-episode').textContent=c.episode_info||'—';
   document.getElementById('ans-creator').textContent=c.creator||'—';
+  document.getElementById('ans-year-start').textContent=c.year_start||'—';
+  document.getElementById('ans-year-end').textContent=c.year_end||'—';
   document.getElementById('ans-seasons').textContent=c.seasons||'—';
-  document.getElementById('ans-first').textContent=c.first_episode||'—';
-  document.getElementById('ans-final').textContent=c.final_episode||'—';
+  document.getElementById('ans-country').textContent=c.country||'—';
+  document.getElementById('ans-imdb').textContent=c.imdb_score?c.imdb_score+' / 10':'—';
   document.getElementById('answer-card').classList.add('show');
   document.getElementById('btn-reveal').style.display='none';
 }
@@ -682,13 +731,16 @@ function fsstartTick(){
 function fsReveal(){
   const c=quizOrder[qi];
   document.getElementById('fs-ans-title').textContent=c.series_name||'Unknown';
+  document.getElementById('fs-ans-original').textContent=c.original_title||'';
+  document.getElementById('fs-ans-episode').textContent=c.episode_info||'—';
   document.getElementById('fs-ans-creator').textContent=c.creator||'—';
+  document.getElementById('fs-ans-year-start').textContent=c.year_start||'—';
+  document.getElementById('fs-ans-year-end').textContent=c.year_end||'—';
   document.getElementById('fs-ans-seasons').textContent=c.seasons||'—';
-  document.getElementById('fs-ans-first').textContent=c.first_episode||'—';
-  document.getElementById('fs-ans-final').textContent=c.final_episode||'—';
+  document.getElementById('fs-ans-country').textContent=c.country||'—';
+  document.getElementById('fs-ans-imdb').textContent=c.imdb_score?c.imdb_score+' / 10':'—';
   document.getElementById('fs-answer-bar').classList.add('show');
   document.getElementById('fs-btn-reveal').classList.remove('visible');
-  // sync reveal to main view too
   fsSecs=0;
 }
 
