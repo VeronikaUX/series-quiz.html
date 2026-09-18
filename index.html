@@ -199,9 +199,10 @@ input:focus{border-color:var(--lime-d)}
           <label for="url1">YouTube URL</label>
           <div class="field-row">
             <input type="text" id="url1" placeholder="https://youtube.com/watch?v=..." autocomplete="off" spellcheck="false" oninput="updateThumb(1)"/>
-            <input type="number" id="start1" placeholder="0s" min="0" style="width:68px"/>
+            <input type="number" id="start1" placeholder="Start s" min="0" style="width:76px"/>
+              <input type="number" id="end1" placeholder="End s" min="0" style="width:76px"/>
           </div>
-          <div class="hint">Start at (seconds) — skip the title card</div>
+          <div class="hint">Start / End in seconds — skip title cards at beginning or end</div>
         </div>
         <div class="thumb-wrap" id="thumb1"><img id="thumb1-img" src="" alt="Preview"/></div>
 
@@ -238,9 +239,10 @@ input:focus{border-color:var(--lime-d)}
           <label for="url2">YouTube URL</label>
           <div class="field-row">
             <input type="text" id="url2" placeholder="https://youtube.com/watch?v=..." autocomplete="off" spellcheck="false" oninput="updateThumb(2)"/>
-            <input type="number" id="start2" placeholder="0s" min="0" style="width:68px"/>
+            <input type="number" id="start2" placeholder="Start s" min="0" style="width:76px"/>
+              <input type="number" id="end2" placeholder="End s" min="0" style="width:76px"/>
           </div>
-          <div class="hint">Start at (seconds) — skip the title card</div>
+          <div class="hint">Start / End in seconds — skip title cards at beginning or end</div>
         </div>
         <div class="thumb-wrap" id="thumb2"><img id="thumb2-img" src="" alt="Preview"/></div>
 
@@ -464,7 +466,7 @@ async function submitClip(n){
   const btn=document.getElementById('add-btn'+n);
   btn.disabled=true;btn.textContent='Saving...';
   const{error}=await db.from('series_clips').insert([{
-    video_id:vid, start_sec:sec, session_id:sid,
+    video_id:vid, start_sec:sec, end_sec:parseInt(document.getElementById('end'+n).value)||null, session_id:sid,
     series_name:name,
     submitted_by:submitter,
     original_title:'',
@@ -478,7 +480,7 @@ async function submitClip(n){
     country:document.getElementById('country'+n).value.trim()
   }]);
   if(error){alert('Ошибка: '+error.message);btn.disabled=false;btn.innerHTML='&#128064; Отправить клип 0'+n+' анонимно';return;}
-  ['url','start','name','episode_info','creator','imdb','year_start','year_end','episode_count','country']
+  ['url','start','end','name','episode_info','creator','imdb','year_start','year_end','episode_count','country']
     .forEach(f=>{const el=document.getElementById(f+n);if(el)el.value='';});
   document.getElementById('thumb'+n).style.display='none';
   btn.disabled=false;btn.innerHTML='&#128064; Отправить клип 0'+n+' анонимно';
@@ -521,7 +523,8 @@ function loadClip(i){
   stopReset();qi=i;secs=60;
   document.getElementById('q-title').textContent=`Clip #${String(i+1).padStart(2,'0')}`;
   document.getElementById('q-counter').textContent=`${String(i+1).padStart(2,'0')} / ${String(quizOrder.length).padStart(2,'0')}`;
-  document.getElementById('timer').textContent='60';
+  const _c=quizOrder[i]; secs=_c.end_sec?Math.min(60,_c.end_sec-_c.start_sec):60;
+  document.getElementById('timer').textContent=secs;
   document.getElementById('timer').classList.remove('warn');
   document.getElementById('pfill').style.width='100%';
   document.getElementById('btn-prev').disabled=i===0;
@@ -566,15 +569,17 @@ function stopReset(){
 
 function tick(){
   clearInterval(tInt);
+  const c=quizOrder[qi];
+  const maxSecs = c.end_sec ? Math.min(60, c.end_sec - c.start_sec) : 60;
   tInt=setInterval(()=>{
     secs--;
-    document.getElementById('pfill').style.width=Math.max(secs/60*100,0)+'%';
+    const pct = Math.max(secs/maxSecs*100,0);
+    document.getElementById('pfill').style.width=pct+'%';
     document.getElementById('timer').textContent=Math.max(secs,0);
     if(secs<=10)document.getElementById('timer').classList.add('warn');
     if(secs<=0){
       clearInterval(tInt);stopReset();
       document.getElementById('timer').textContent='00';
-      // auto show reveal modal
       showRevealModal();
     }
   },1000);
@@ -651,9 +656,11 @@ function fsStop(){
 
 function fsstartTick(){
   clearInterval(fsTint);
+  const c=quizOrder[qi];
+  const maxSecs = c.end_sec ? Math.min(60, c.end_sec - c.start_sec) : 60;
   fsTint=setInterval(()=>{
     fsSecs--;
-    document.getElementById('fs-pfill').style.width=Math.max(fsSecs/60*100,0)+'%';
+    document.getElementById('fs-pfill').style.width=Math.max(fsSecs/maxSecs*100,0)+'%';
     document.getElementById('fs-timer').textContent=Math.max(fsSecs,0);
     if(fsSecs<=10)document.getElementById('fs-timer').classList.add('warn');
     if(fsSecs<=0){
